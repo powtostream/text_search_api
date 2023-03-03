@@ -61,7 +61,7 @@ def search():
             }
         }
     }
-    resp = es.search(index='posts', body={'query': query})
+    resp = es.search(index='posts', body={'query': query}, size=1500)
 
     id_list = list()
     for hit in resp.get("hits").get('hits'):
