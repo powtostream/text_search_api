@@ -1,12 +1,5 @@
-# Flask==2.2.3
-# SQLAlchemy~=2.0.4
 elasticsearch~=8.6.2
-# Flask-Migrate==2.5.3
-# flask-script==2.0.5
-# flask_marshmallow
 pandas~=1.5.3
-# psycopg2-binary==2.9.3
-# Flask-SQLAlchemy==2.5.1
 Flask==1.1.2
 Flask-SQLAlchemy==2.5.1
 psycopg2-binary==2.9.3
@@ -18,3 +11,6 @@ marshmallow-sqlalchemy==0.28.0
 Werkzeug==2.0.3
 Jinja2==3.0.0
 itsdangerous==1.1.0
+apispec==5.1.1
+apispec-webframeworks==0.5.2
+flask-swagger-ui==4.11.1

@@ -9,6 +9,8 @@ services:
       - "5000:5000"
     depends_on:
       - db
+#    env_file:
+#      - .env
 
   # The DataBase
   db:
@@ -32,6 +34,8 @@ services:
       - xpack.security.enabled=False
       - discovery.type=single-node
 #      - ES_JAVA_OPTS="-Xms750m -Xmx750m"
+#    volumes:
+#      - ./posts_elasticsearch:/usr/share/elasticsearch/data
     deploy:
       resources:
         limits:
@@ -39,3 +43,4 @@ services:
 
 #volumes:
 #  posts_postgres:
+#  posts_elasticsearch:

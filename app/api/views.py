@@ -9,11 +9,36 @@ from app.api.schemas import (
     MatchPhraseSchema, ResponseSchema, ListPostSchema, PostIdSchema
 )
 
-bp = Blueprint("text_search", __name__, url_prefix="/")
+bp = Blueprint("text_search", __name__, url_prefix="/api/")
 
 
-@bp.route("search/", methods=['POST'])
+@bp.route("/search/", methods=['POST'])
 def search():
+    """
+    ---
+    post:
+        tags:
+            - TextSearch
+        summary: "Поиск постов по содержанию в них определённого текста,
+        возвращает последние 20 постов или меньше"
+        requestBody:
+            content:
+                application/json:
+                    schema: MatchPhraseSchema
+        responses:
+            '200':
+                description: Результаты поиска
+                content:
+                    application/json:
+                        schema: ListPostSchema
+            '400':
+                description: Данные введены неверно
+                content:
+                    application/json:
+                        schema: ResponseSchema
+                        example:
+                            message: Данные введены неверно
+    """
     raw_data = request.json
 
     try:
@@ -54,9 +79,43 @@ def search():
     ), http.HTTPStatus.OK
 
 
-@bp.route("delete/<post_id>/", methods=['DELETE'])
+@bp.route("/delete/<post_id>/", methods=['DELETE'])
 def delete(post_id):
-
+    """
+    ---
+    delete:
+        tags:
+            - TextSearch
+        summary: Удалить код
+        parameters:
+         - in: path
+           name: post_id
+           schema:
+             type: string
+             description: post_id to delete
+           example: 2
+           required: True
+        responses:
+            '200':
+                description: Пост успешно удалён
+                content:
+                    application/json:
+                        schema: ResponseSchema
+                        example:
+                            message: Код успешно удалён
+            '400':
+                description: Данные введены неверно
+                content:
+                    application/json:
+                        schema: ResponseSchema
+            '409':
+                description: Ошибка удаления
+                content:
+                  application/json:
+                    schema: ResponseSchema
+                    example:
+                      message: Ошибка удаления
+    """
     error = PostIdSchema().validate({"post_id": post_id})
 
     if error:
